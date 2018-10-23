@@ -83,4 +83,34 @@ max_gdp_EV<- gapminder %>%
 ```
 
 
+Starting second day
+
+```{r}
+gap_grouped <- gapminder %>% 
+  group_by(country) %>% 
+  mutate(gdp = pop*gdpPercap,
+         max_gdp = max(gdp)) %>% 
+  ungroup()
+```
+
+^ this is ok but we went up with max_gdp repeating in every row. Let's do the same thing with summarizing.
+
+```{r}
+gap_summarized <- gapminder %>% 
+  group_by(country) %>% 
+  mutate(gdp = pop*gdpPercap) %>% 
+  summarize(max_gdp = max(gdp)) %>% 
+  ungroup
+```
+
+Example for arrange
+
+```{r}
+gap_summarized <- gapminder %>% 
+  group_by(country) %>% 
+  mutate(gdp = pop*gdpPercap) %>% 
+  summarize(max_gdp = max(gdp)) %>% 
+  ungroup() %>% 
+  arrange(desc(max_gdp))
+```
 
